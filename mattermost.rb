@@ -8,9 +8,12 @@ class Mattermost
   end
 
   # ENV['MM_CHANNEL_ID']
-  def post_message(channel, message, file_ids = [])
+  def post_message(channel, message, root_id = nil, file_ids = [])
     url = URI.parse("https://mattermost.eng-eng.group/api/v4/posts")
     body = {"channel_id" => channel, "message" => message}
+    if root_id
+      body["root_id"] = root_id
+    end
     if !file_ids.empty?
       body["file_ids"] = file_ids
     end
