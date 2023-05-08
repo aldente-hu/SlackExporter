@@ -8,7 +8,7 @@ end
 
 class SlackExport
 
-  def initilaize
+  def initialaize
     @client = ::Slack::Web::Client.new
   end
 
