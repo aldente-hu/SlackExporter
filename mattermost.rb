@@ -22,12 +22,7 @@ class Mattermost
     http.use_ssl = true
     http.start { |session|
       response = session.post(url.request_uri, body.to_json, { 'ContentType' => 'application/json', 'Authorization' => "Bearer #{@access_token}" })
-      code = response.code.to_i
-      if (200...300) === code
-        puts code
-      else
-        puts response.body
-      end
+      JSON.parse(response.body) # 失敗したら，status_coddを含む（HTTPのレスポンスコード，403とか）．
     }
   end
   #module_function :post_message
