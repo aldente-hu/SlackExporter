@@ -24,6 +24,8 @@ class SlackExport
     res.messages
   end
 
+  # 成功すれば，[path, mimetype] の配列．
+  # 1つでも失敗すればnilが返ります．
   def get_attached_files_info(message)
     if message.files
       files_info = message.files.map do |file|

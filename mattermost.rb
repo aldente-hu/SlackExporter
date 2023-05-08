@@ -27,6 +27,22 @@ class Mattermost
   end
   #module_function :post_message
 
+  # 成功すればファイルのIDを，失敗すればHTTPステータスコードを（各ファイルについての配列として）返す．
+  def upload_files(channel, files_info, dry_run = false)
+    files_info.map do |file_info|
+      response = upload_file(channel, file_info[0], file_info[1])
+      p response
+      if response.is_a?(Integer)
+        response
+      else
+        puts "OKOK"
+        p response["file_infos"]
+        response["file_infos"][0]['id']
+      end
+    end
+    # Mattermost側のファイルIDの配列を返す．
+  end
+
   def upload_file(channel, local_path, mimetype)
     url = URI.parse("https://mattermost.eng-eng.group/api/v4/files")
     File.open(local_path) { |file|
