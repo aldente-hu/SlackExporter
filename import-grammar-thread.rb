@@ -60,7 +60,7 @@ slack = SlackExport.new
 mattermost = Mattermost.new(ENV['MM_USER_ACCESS_TOKEN'])
 
 # 特定の投稿と返信を拾う．
-messages = slack.conversations_history(ENV['SLACK_CHANNEL_ID'], ARGV[0])
+messages = slack.conversations_replies(ENV['SLACK_CHANNEL_ID'], ARGV[0])
 
 root = messages.first
 
