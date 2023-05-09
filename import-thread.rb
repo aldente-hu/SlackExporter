@@ -23,7 +23,7 @@ user_names = Hash.new { |hash, key|
 }
 files_info = slack.get_attached_files_info(root)
 
-file_ids = upload_files(ENV['MM_CHANNEL_ID'], files_info) # dry-runは未考慮．
+file_ids = mattermost.upload_files(ENV['MM_CHANNEL_ID'], files_info) # dry-runは未考慮．
 if !file_ids
   puts "アップロードに失敗したファイルがあります．"
   return
