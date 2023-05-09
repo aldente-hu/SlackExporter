@@ -40,7 +40,7 @@ puts "Root ID: #{root_id}"
 messages[1..-1].each do |message|
   user = slack.get_user_name(message.user)
   files_info = slack.get_attached_files_info(message)
-  file_ids = upload_files(ENV['MM_CHANNEL_ID'], files_info)
+  file_ids = mattermost.upload_files(ENV['MM_CHANNEL_ID'], files_info)
 
   res = mattermost.post_message(ENV['MM_CHANNEL_ID'], generate_message(message, user_names[message.user]), root_id, file_ids)
   puts res
