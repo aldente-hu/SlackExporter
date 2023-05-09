@@ -12,14 +12,23 @@ class SlackExport
     @client = ::Slack::Web::Client.new
   end
 
+  def list_messages(channel, after = Time.now - 90 * 86400)
+    messages = conversations_history(channel, after)
+    messages.each do |message|
+      puts "#{message.ts} #{message.text[0...50]}"
+    end
+  end
+
   def conversations_history(channel, after)
-    #res = @client.conversations_history(channel: ENV['SLACK_CHANNEL_ID'], oldest: after.to_f)
     res = @client.conversations_history(channel: channel, oldest: after.to_f)
-    res.messages
+    if res.ok
+      res.messages
+    else
+      raise res.error # 文字列のはず．
+    end
   end
 
   def conversations_replies(channel, ts)
-    #res = @client.conversations_replies(channel: ENV['SLACK_GRAMMAR_CHANNEL'], ts: ts)
     res = @client.conversations_replies(channel: channel, ts: ts)
     res.messages
   end
