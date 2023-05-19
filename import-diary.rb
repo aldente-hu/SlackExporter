@@ -32,7 +32,7 @@ end
 
 
 slack = SlackExport.new
-mattermost = MatterMost.new(ENV['MM_USER_ACCESS_TOKEN'])
+mattermost = Mattermost.new(ENV['MM_USER_ACCESS_TOKEN'])
 
 span = ARGV[0] ? ARGV[0].to_i : 3600
 messages = slack.conversations_history(ENV['SLACK_CHANNEL_ID'], Time.now - span) 
