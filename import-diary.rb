@@ -41,7 +41,7 @@ messages.each do |message|
   user = slack.get_user_name(message.user)
   files_info = slack.get_attached_files_info(message)
 
-  file_ids = mattermost.upload_files(files_info)
+  file_ids = mattermost.upload_files(ENV['MM_CHANNEL_ID'], files_info)
   new_message = "**#{user_name}** さんが日記を投稿しました。 #{Time.at(diary.ts.to_f).localtime("+09:00")}\n> #{diary.text.gsub(/\n/, "\n>")}"
   mattermost.post_message(ENV['MM_CHANNEL_ID'], new_message, nil, file_ids)
 end
