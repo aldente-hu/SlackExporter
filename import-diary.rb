@@ -34,7 +34,8 @@ end
 slack = SlackExport.new
 mattermost = MatterMost.new(ENV['MM_USER_ACCESS_TOKEN'])
 
-messages = slack.conversations_history(ENV['SLACK_CHANNEL_ID'], Time.now - 3600) # check latest 1 hour.
+span = ARGV[0] ? ARGV[0].to_i : 3600
+messages = slack.conversations_history(ENV['SLACK_CHANNEL_ID'], Time.now - span) 
 
 messages.each do |message|
   user = slack.get_user_name(message.user)
